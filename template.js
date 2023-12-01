@@ -1,4 +1,4 @@
-// To Run Code
+// To Run Code!
 // Requires node
 // Open terminal inside folder and run 'node <output filename.js>'
 
