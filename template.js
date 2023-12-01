@@ -1,11 +1,12 @@
-// To Run Code!!
-// Requires node
-// Open terminal inside folder and run 'node <output filename.js>'
+/*
+ * Instructions
+ * To run code open terminal inside folder and run 'node <output filename.js>'
+ * This requires node to be installed and accessible
+ */
 
-// Read input file and push it to an array named inputArray which is mapped appropriately per the problem statement
-const useExample = true;
-const fs = require("fs");
-const inputArray = [];
+const useExample = true; // Use input-example if true, input if false
+let fs = require("fs");
+let inputArray = [];
 if (useExample){
     inputArray = fs
     .readFileSync("./input-example").toString('utf-8')
