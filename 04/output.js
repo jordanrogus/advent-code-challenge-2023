@@ -49,12 +49,35 @@ console.log("----------------------------------------------------------");
 
 // Part B
 function partB(inputArray) {
-    let answer = 0;
+    // Blank array stating we have 1 of each card to start; Goal is an array of the number of cards we can sum
+    const cardCopies = new Array(inputArray.length).fill(1);
 
+    // Go through each card 
     for (let i = 0; i < inputArray.length; i++) {
-        console.log(splitLine(inputArray[i]));
+
+        // Get current number of card
+        const qtyCards = cardCopies[i];// i.e. Card 1 is never copied so it is 1
+
+        // Determine winning numbers for card
+        const currentGameObj = splitLine(inputArray[i]);
+        const currentWinningNums = currentGameObj["myNumbers"].filter(value => currentGameObj["winningNumbers"].includes(value));
+        
+        // The amount of copies to apply against further cards is the number of winning numbers
+        const copiesToApply = currentWinningNums.length;
+
+        // For each winning number, we need to apply a copy to the next card
+        for (let j = 1; j < copiesToApply+1; j++) {
+
+            // cardCopies[j + i] iterates so we add 1 to the next card in order.
+            cardCopies[j + i] += qtyCards;              
+        }
+
+        // Logging data to track each card details
+        console.log("Card number: " + currentGameObj.gameNumber + ", Winning numbers: " + copiesToApply + ". Card copies: " + cardCopies + ", Quantity of this card: " + qtyCards);
     }
 
+    // Goal is an array of the number of cards we can sum
+    const answer = cardCopies.reduce((accumulator, currentValue) => accumulator + currentValue,0); // Initialize to 0
     return answer;
 }
 
@@ -63,7 +86,6 @@ console.log("Part b: \n" + partB(inputArray));
 console.log("----------------------------------------------------------");
 
 //////////////////////// HELPER FUNCTION(S) ////////////////////////
-
 function splitLine(line) {
     const splitLine = line.split(/[:|]/);
     const gameNumber = Number(splitLine[0].split(" ")[1]);
